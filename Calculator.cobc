@@ -1,0 +1,70 @@
+       IDENTIFICATION DIVISION.
+       PROGRAM-ID. FULL-CALCULATOR.
+
+       DATA DIVISION.
+       WORKING-STORAGE SECTION.
+
+       01 WS-NUM1        PIC 9(6)V99.
+       01 WS-NUM2        PIC 9(6)V99.
+       01 WS-RESULT     PIC 9(8)V99.
+       01 WS-REMAINDER  PIC 9(6).
+       01 WS-OPERATION  PIC X(1).
+
+       PROCEDURE DIVISION.
+       MAIN-PARA.
+
+           DISPLAY "============================".
+           DISPLAY "      COBOL CALCULATOR      ".
+           DISPLAY "============================".
+
+           DISPLAY "Dose ton proto arithmo:".
+           ACCEPT WS-NUM1.
+
+           DISPLAY "Dose ton deutero arithmo:".
+           ACCEPT WS-NUM2.
+
+           DISPLAY "Dialekse praxi:".
+           DISPLAY "+  = Prosthesi".
+           DISPLAY "-  = Afairesi".
+           DISPLAY "*  = Pollaplasiasmos".
+           DISPLAY "/  = Diairesi".
+           DISPLAY "%  = Ypoloipo (MOD)".
+
+           ACCEPT WS-OPERATION.
+
+           EVALUATE WS-OPERATION
+               WHEN '+'
+                   COMPUTE WS-RESULT = WS-NUM1 + WS-NUM2
+                   DISPLAY "Apotelesma: " WS-RESULT
+
+               WHEN '-'
+                   COMPUTE WS-RESULT = WS-NUM1 - WS-NUM2
+                   DISPLAY "Apotelesma: " WS-RESULT
+
+               WHEN '*'
+                   COMPUTE WS-RESULT = WS-NUM1 * WS-NUM2
+                   DISPLAY "Apotelesma: " WS-RESULT
+
+               WHEN '/'
+                   IF WS-NUM2 = 0
+                       DISPLAY "LATHOS: Diairesi me to 0!"
+                   ELSE
+                       COMPUTE WS-RESULT = WS-NUM1 / WS-NUM2
+                       DISPLAY "Apotelesma: " WS-RESULT
+                   END-IF
+
+               WHEN '%'
+                   IF WS-NUM2 = 0
+                       DISPLAY "LATHOS: MOD me to 0!"
+                   ELSE
+                       COMPUTE WS-REMAINDER =
+                           FUNCTION MOD(WS-NUM1 WS-NUM2)
+                       DISPLAY "Ypoloipo: " WS-REMAINDER
+                   END-IF
+
+               WHEN OTHER
+                   DISPLAY "Mi egkyri epilogi"
+           END-EVALUATE.
+
+           DISPLAY "Telos programmatos".
+           STOP RUN.
